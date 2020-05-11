@@ -15,9 +15,10 @@ class HRWHashing(object):
     def get_node(self,key):
         list_weights=[]
         for node in self.nodes:
-            node_bytes = serialize(node)
-            key_bytes = serialize(key)
-            node_hash = hash_code_hex(node_bytes+key_bytes)
+            node_addrdress = str(node.host+":"+str(node.port))
+            new_key = key+node_addrdress
+            new_key_bytes = serialize(new_key)
+            node_hash = hash_code_hex(new_key_bytes)
             node_hash = int(node_hash,16)
             list_weights.append((node_hash,node))
         _ , node = max(list_weights)
